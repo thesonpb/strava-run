@@ -1,0 +1,20 @@
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-thumb {
+    background-color: rgb(216, 216, 216);
+    border-radius: 40px;
+}
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Montserrat";
+}
+
+.main-content {
+    min-width: calc(100vw - 80px) !important;
+    min-height: 100vh;
+}
