@@ -1,23 +1,26 @@
 import React from "react";
-import { Button, Form, Input } from "antd";
+import { Button } from "antd";
 
 function LoginPage() {
-  const [form] = Form.useForm();
+  const handleLogin = async () => {
+    const clientId = import.meta.env.VITE_CLIENT_ID;
+    const redirectUri = import.meta.env.VITE_REDIRECT_URI;
+
+    const authUrl = `https://www.strava.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=read_all`;
+
+    window.location.href = authUrl;
+  };
+
   return (
-    <div className="h-screen flex items-center">
-      <div className="mx-auto rounded-xl bg-gray p-8">
-        <Form form={form}>
-          <Form.Item>
-            <Input size="large" />
-          </Form.Item>
-          <Form.Item>
-            <Input.Password size="large" />
-          </Form.Item>
-          <Button type="primary" size="large" className="w-full">
-            alo
-          </Button>
-        </Form>
-      </div>
+    <div className="h-screen flex items-center justify-center">
+      <Button
+        type="primary"
+        size="large"
+        className="w-56 font-bold"
+        onClick={handleLogin}
+      >
+        Login to Strava
+      </Button>
     </div>
   );
 }

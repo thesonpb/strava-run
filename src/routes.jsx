@@ -4,6 +4,7 @@ import Page404 from "./pages/Page404";
 import Dashboard from "./pages/Dashboard";
 import SimpleLayout from "./Layouts/SimpleLayout/index.jsx";
 import AppLayout from "./Layouts/AppLayout";
+import CallbackPage from "./pages/CallbackPage";
 
 export default function Router() {
   const routes = useRoutes([
@@ -18,6 +19,10 @@ export default function Router() {
     {
       path: "login",
       element: <LoginPage />,
+    },
+    {
+      path: "callback",
+      element: <CallbackPage />,
     },
     {
       element: <SimpleLayout />,

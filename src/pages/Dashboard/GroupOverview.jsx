@@ -17,7 +17,7 @@ function GroupOverview() {
     </div>
   );
   return (
-    <div className="bg-gray rounded-2xl w-full mt-4 py-4">
+    <div className="bg-gray rounded-2xl w-full mt-4 py-4 shadow-xl">
       <div className="mx-4">
         <div className="flex justify-between items-center">
           <h2 className="cursor-pointer my-0 text-white flex items-center">
