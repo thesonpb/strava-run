@@ -2,6 +2,19 @@ import "./App.css";
 import { BrowserRouter } from "react-router-dom";
 import Router from "./routes.jsx";
 import { ConfigProvider } from "antd";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      refetchInterval: false,
+      retry: 0,
+      onError: () => {},
+    },
+  },
+});
+
 function App() {
   return (
     <ConfigProvider
@@ -11,9 +24,11 @@ function App() {
         },
       }}
     >
-      <BrowserRouter>
-        <Router />
-      </BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <Router />
+        </BrowserRouter>
+      </QueryClientProvider>
     </ConfigProvider>
   );
 }

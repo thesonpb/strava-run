@@ -1,23 +1,23 @@
-import React, { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Navigate, useLocation } from "react-router-dom";
 import { Spin } from "antd";
 import axios from "axios";
 import Cookie from "js-cookie";
+import Base from "../app/models/Base";
 
 function CallbackPage() {
-  const navigate = useNavigate();
-
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const state = searchParams.get("state");
   const code = searchParams.get("code");
-  const scope = searchParams.get("scope");
 
   const tokenUrl = "https://www.strava.com/oauth/token";
 
   const client_id = import.meta.env.VITE_CLIENT_ID;
   const client_secret = import.meta.env.VITE_CLIENT_SECRET;
   const redirect_uri = import.meta.env.VITE_REDIRECT_URI;
+
+  const [isLoading, setIsLoading] = useState(true);
+
   const getAccessToken = async () => {
     try {
       const response = await axios.post(tokenUrl, {
@@ -27,7 +27,6 @@ function CallbackPage() {
         grant_type: "authorization_code",
         redirect_uri,
       });
-
       Cookie.set("access_token", response.data.access_token, {
         expires: 1 / 4,
         sameSite: "Lax",
@@ -37,7 +36,7 @@ function CallbackPage() {
         sameSite: "Lax",
       });
       localStorage.setItem("user", JSON.stringify(response.data.athlete));
-      navigate("/app/dashboard");
+      setIsLoading(false);
     } catch (error) {
       console.error("Error exchanging code for token:", error);
       throw error;
@@ -47,7 +46,19 @@ function CallbackPage() {
   useEffect(() => {
     getAccessToken();
   }, []);
-  return <Spin spinning />;
+
+  if (isLoading) {
+    return <Spin spinning />;
+  }
+
+  const access_token = Cookie.get("access_token");
+  if (access_token) {
+    const base = new Base();
+    base.getToken();
+    return <Navigate to="/app/dashboard" />;
+  }
+
+  return null;
 }
 
 export default CallbackPage;
