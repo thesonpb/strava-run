@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { Spin } from "antd";
 import axios from "axios";
 import Cookie from "js-cookie";
 import Base from "../app/models/Base";
+import { AppContext } from "../app/context/AppContext";
 
 function CallbackPage() {
+  const { setUser } = useContext(AppContext);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const code = searchParams.get("code");
@@ -36,6 +38,7 @@ function CallbackPage() {
         sameSite: "Lax",
       });
       localStorage.setItem("user", JSON.stringify(response.data.athlete));
+      setUser(response.data.athlete);
       setIsLoading(false);
     } catch (error) {
       console.error("Error exchanging code for token:", error);

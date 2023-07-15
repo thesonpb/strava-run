@@ -10,9 +10,7 @@ function LoginPage() {
     const clientId = import.meta.env.VITE_CLIENT_ID;
     const redirectUri = import.meta.env.VITE_REDIRECT_URI;
 
-    const authUrl = `https://www.strava.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=activity:read_all`;
-
-    window.location.href = authUrl;
+    window.location.href = `https://www.strava.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=activity:read_all`;
   };
 
   return (

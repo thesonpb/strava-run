@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import DashboardIcon from "../../app/icons/DashboardIcon";
 import TableIcon from "../../app/icons/TableIcon";
 import HistoryIcon from "../../app/icons/HistoryIcon";
@@ -7,14 +7,11 @@ import LogoutIcon from "../../app/icons/LogoutIcon";
 import { Tooltip } from "antd";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../app/common/functions";
+import { AppContext } from "../../app/context/AppContext";
 
 function Navbar() {
+  const { user } = useContext(AppContext);
   const navigate = useNavigate();
-  const data = {
-    imageSrc:
-      "https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-  };
-  const { imageSrc } = data;
 
   const menuList = [
     { icon: <DashboardIcon />, label: "Dashboard", key: "/app/dashboard" },
@@ -27,8 +24,12 @@ function Navbar() {
       <div>
         {/* Avatar */}
         <div className="mx-auto w-14 h-14 flex items-center justify-center mt-4 cursor-pointer">
-          {imageSrc ? (
-            <img className="rounded-full w-14 h-14" src={imageSrc} />
+          {user?.profile ? (
+            <img
+              className="rounded-full w-14 h-14"
+              src={user?.profile}
+              alt="avatar"
+            />
           ) : (
             <div className="rounded-full w-14 h-14 bg-green" />
           )}

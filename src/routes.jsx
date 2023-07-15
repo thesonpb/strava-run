@@ -10,7 +10,7 @@ import History from "./pages/History";
 import Leaderboard from "./pages/Leaderboard";
 
 export default function Router() {
-  const routes = useRoutes([
+  return useRoutes([
     {
       path: "/app",
       element: <AppLayout />,
@@ -43,6 +43,4 @@ export default function Router() {
       element: <Navigate to="/404" replace />,
     },
   ]);
-
-  return routes;
 }

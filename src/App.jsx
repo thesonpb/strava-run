@@ -3,6 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import Router from "./routes.jsx";
 import { ConfigProvider } from "antd";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { AppProvider } from "./app/context/AppContext";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -26,7 +27,9 @@ function App() {
     >
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
-          <Router />
+          <AppProvider>
+            <Router />
+          </AppProvider>
         </BrowserRouter>
       </QueryClientProvider>
     </ConfigProvider>
