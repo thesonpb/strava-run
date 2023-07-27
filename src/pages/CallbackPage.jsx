@@ -51,7 +51,11 @@ function CallbackPage() {
   }, []);
 
   if (isLoading) {
-    return <Spin spinning />;
+    return (
+      <div className="h-screen w-screen flex items-center justify-center">
+        <Spin spinning />;
+      </div>
+    );
   }
 
   const access_token = Cookie.get("access_token");
