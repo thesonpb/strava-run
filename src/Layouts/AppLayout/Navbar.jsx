@@ -5,13 +5,14 @@ import HistoryIcon from "../../app/icons/HistoryIcon";
 import GroupIcon from "../../app/icons/GroupIcon";
 import LogoutIcon from "../../app/icons/LogoutIcon";
 import { Tooltip } from "antd";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { logout } from "../../app/common/functions";
 import { AppContext } from "../../app/context/AppContext";
 
 function Navbar() {
   const { user } = useContext(AppContext);
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const menuList = [
     { icon: <DashboardIcon />, label: "Dashboard", key: "/app/dashboard" },
@@ -41,7 +42,9 @@ function Navbar() {
             <Tooltip placement="right" key={item.key} title={item.label}>
               <div
                 onClick={() => navigate(item.key)}
-                className="w-14 h-14 rounded-2xl cursor-pointer hover:bg-gray text-lighterGray hover:text-white flex items-center justify-center"
+                className={`w-14 h-14 rounded-2xl ${
+                  pathname === item.key ? "bg-gray" : ""
+                } cursor-pointer hover:bg-gray text-lighterGray hover:text-white flex items-center justify-center`}
               >
                 {item.icon}
               </div>

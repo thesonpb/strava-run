@@ -32,6 +32,15 @@ export const formatDistance = (distance = 0) => {
     return `${distance}m`;
   }
 };
+
+export const formatDistanceWithUnit = (distance = 0) => {
+  if (distance >= 100) {
+    const distanceInKm = (distance / 1000).toFixed(2);
+    return { distance: distanceInKm, unit: "Km" };
+  } else {
+    return { distance: distance, unit: "M" };
+  }
+};
 export const formatMovingTime = (moving_time = 0) => {
   if (moving_time < 60) {
     return `${moving_time}s`;
